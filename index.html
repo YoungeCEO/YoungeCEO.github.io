@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="younge. - Roblox developer and world builder. Builds, interfaces and 3D models.">
+<meta property="og:title" content="younge. Portfolio">
+<meta property="og:description" content="Roblox builds, interfaces and 3D models.">
+<meta property="og:image" content="img/thumb/hero.jpg">
+<style>[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
+<title>younge. Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one 1240px column. Hero = statement over a full-bleed 4K render. Then three galleries
+   (Builds, Interfaces, Models): a wide lead image + a 2-up grid, every image opens full-size in a viewer. */
+:root{
+  --bg:#060a14;
+  --bg-2:#0b1224;
+  --line:rgba(150,180,255,.16);
+  --fg:#eef2fb;
+  --muted:#93a1bf;
+  --accent:#86c8ff;
+  --accent-2:#c9e6ff;
+  --ink:#06101f;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1240px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.32em;text-transform:uppercase;color:var(--accent)}
+
+/* header */
+.site-head{position:relative;z-index:20}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;min-height:62px;border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:flex-end;gap:1px;font:600 21px/1 var(--body);letter-spacing:-.01em}
+.logo svg{width:auto;height:.86em;margin-bottom:.02em}
+.logo .rest{line-height:.8}
+/* category links: pinned to the top right while scrolling, no background; hidden while the image viewer is open */
+.nav{position:fixed;z-index:50;top:calc(env(safe-area-inset-top,0px) + 20px);right:max(24px,env(safe-area-inset-right,0px),calc((100vw - var(--wrap)) / 2 + 24px));
+  display:flex;align-items:center;gap:28px;font-size:14px;transition:opacity .3s,transform .3s}
+.nav a{opacity:.86;transition:opacity .2s,color .2s;text-shadow:0 1px 2px rgba(0,0,0,.9),0 0 14px rgba(0,0,0,.75)}
+body.viewing .nav,body.locked .nav{opacity:0;pointer-events:none;transform:translateY(-6px)}
+.nav a:hover,.nav a.on{opacity:1;color:var(--accent-2)}
+
+/* hero */
+.hero{position:relative;isolation:isolate;overflow:hidden}
+.hero-art{position:absolute;inset:0;z-index:-1}
+.hero-art img{width:100%;height:100%;object-fit:cover;object-position:60% 45%;animation:drift 26s ease-in-out infinite alternate}
+.hero-art::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,var(--bg) 0%,rgba(6,10,20,.82) 26%,rgba(6,10,20,.25) 58%,rgba(6,10,20,0) 80%),
+  linear-gradient(0deg,var(--bg) 0%,rgba(6,10,20,0) 30%),
+  linear-gradient(180deg,rgba(6,10,20,.7) 0%,rgba(6,10,20,0) 18%)}
+@keyframes drift{from{transform:scale(1.03)}to{transform:scale(1.09) translate(-1.2%,.8%)}}
+.hero .wrap{padding-block:110px 90px;min-height:640px;display:flex;flex-direction:column;justify-content:center;gap:28px}
+h1{margin:0;font:900 clamp(46px,6.8vw,94px)/.93 var(--display);letter-spacing:-.045em;text-wrap:balance;max-width:11ch}
+h1 .hl{background:linear-gradient(100deg,var(--accent) 10%,var(--accent-2) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{margin:0;font-size:clamp(17px,1.6vw,20px);color:#dbe3f5;max-width:36ch}
+.jump{display:flex;flex-wrap:wrap;gap:10px}
+.jump a{display:inline-flex;align-items:baseline;gap:10px;padding:13px 20px;border:1px solid rgba(238,242,251,.55);font-size:15px;font-weight:500;transition:background .2s,border-color .2s}
+.jump a:first-child{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.jump a:hover{background:rgba(238,242,251,.1)}
+.jump a:first-child:hover{background:var(--accent-2);border-color:var(--accent-2)}
+.jump small{font:500 11px/1 var(--mono);opacity:.7}
+.hero-caption{position:absolute;right:max(24px,env(safe-area-inset-right,0px));bottom:22px;margin:0;font:400 11px/1.5 var(--mono);letter-spacing:.06em;color:var(--muted);text-align:right}
+
+/* sections */
+section.cat{padding-block:72px 24px;scroll-margin-top:72px}
+.cat-head{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:10px 28px;padding-bottom:24px;margin-bottom:22px;border-bottom:1px solid var(--line)}
+.cat-num{font:500 13px/1 var(--mono);color:var(--accent);align-self:start;padding-top:10px}
+h2{margin:0;font:800 clamp(38px,5vw,64px)/1 var(--display);letter-spacing:-.04em;text-wrap:balance}
+.cat-head p{margin:6px 0 0;color:var(--muted);max-width:52ch}
+.cat-count{font:400 12px/1.5 var(--mono);color:var(--muted);text-align:right}
+
+/* mosaic: 12-column grid, tiles span --c columns and --r rows (set per tile by the build) */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:clamp(58px,6.9vw,88px);gap:12px}
+.shot{position:relative;display:block;width:100%;height:100%;padding:0;border:1px solid var(--line);background:var(--bg-2);cursor:zoom-in;overflow:hidden;text-align:left;min-width:0;
+  grid-column:span var(--c,6);grid-row:span var(--r,3);
+  transition:border-color .35s,box-shadow .5s,transform .5s cubic-bezier(.2,.7,.2,1);animation:tile .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d,0) * 60ms)}
+@keyframes tile{from{opacity:.001;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1),filter .4s}
+.shot:hover{border-color:rgba(134,200,255,.55);box-shadow:0 18px 50px -18px rgba(70,150,255,.45);transform:translateY(-3px)}
+.shot:hover img{transform:scale(1.045);filter:saturate(1.1) brightness(1.06)}
+.shot::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(201,230,255,0) 30%,rgba(201,230,255,.14) 48%,rgba(201,230,255,0) 62%);transform:translateX(-120%);transition:transform 1s ease}
+.shot:hover::after{transform:translateX(120%)}
+.shot .cap{position:absolute;inset:auto 0 0 0;display:flex;justify-content:space-between;align-items:end;gap:16px;padding:44px 18px 14px;background:linear-gradient(0deg,rgba(6,10,20,.9),rgba(6,10,20,0));pointer-events:none}
+.cap b{display:block;font-weight:600;font-size:16px;letter-spacing:-.01em}
+.cap span{display:block;color:var(--muted);font-size:13px}
+.cap i{font:500 11px/1 var(--mono);font-style:normal;color:var(--accent-2);border:1px solid var(--line);padding:6px 8px;background:rgba(6,10,20,.55);white-space:nowrap}
+.shot.wide .cap b{font-size:20px}
+.shot.small .cap i{display:none}
+.shot.small .cap span span{display:none}
+
+/* night sky background: canvas stars + drifting aurora glow (fixed, behind content) */
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.aurora{position:fixed;inset:-20%;z-index:0;pointer-events:none;filter:blur(70px);opacity:.55}
+.aurora i{position:absolute;border-radius:50%;mix-blend-mode:screen}
+.aurora i:nth-child(1){width:55vw;height:40vw;left:5%;top:20%;background:radial-gradient(closest-side,rgba(60,120,255,.22),transparent);animation:float1 38s ease-in-out infinite alternate}
+.aurora i:nth-child(2){width:45vw;height:45vw;right:0;top:45%;background:radial-gradient(closest-side,rgba(120,90,255,.16),transparent);animation:float2 46s ease-in-out infinite alternate}
+.aurora i:nth-child(3){width:40vw;height:30vw;left:35%;top:70%;background:radial-gradient(closest-side,rgba(60,200,255,.12),transparent);animation:float1 52s ease-in-out infinite alternate-reverse}
+@keyframes float1{to{transform:translate(12vw,-8vh) scale(1.15)}}
+@keyframes float2{to{transform:translate(-14vw,10vh) scale(.9)}}
+main,.site-foot{position:relative;z-index:1}
+
+/* music toggle */
+.music{position:fixed;z-index:60;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:12px;padding:11px 16px 11px 14px;border:1px solid var(--line);background:rgba(8,14,30,.82);backdrop-filter:blur(10px);color:var(--fg);cursor:pointer;font:500 13px/1 var(--body);box-shadow:0 10px 30px -12px rgba(0,0,0,.6);transition:border-color .3s}
+.music:hover{border-color:var(--accent)}
+.music .eq{display:flex;align-items:flex-end;gap:3px;width:18px;height:16px}
+.music .eq b{flex:1;background:var(--accent);height:30%;border-radius:1px;transition:height .3s}
+.music.on .eq b{animation:eq 1.1s ease-in-out infinite}
+.music.on .eq b:nth-child(2){animation-delay:-.4s}.music.on .eq b:nth-child(3){animation-delay:-.75s}.music.on .eq b:nth-child(4){animation-delay:-.2s}
+@keyframes eq{0%,100%{height:25%}50%{height:100%}}
+.music small{font:400 11px/1 var(--mono);color:var(--muted);letter-spacing:.06em}
+.music-hint{position:fixed;z-index:59;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(72px + env(safe-area-inset-bottom,0px));padding:9px 12px;background:rgba(8,14,30,.9);border:1px solid var(--line);font:400 12px/1.3 var(--body);color:var(--muted);animation:hint 7s ease forwards;pointer-events:none}
+@keyframes hint{0%,6%{opacity:0;transform:translateY(6px)}12%,86%{opacity:1;transform:none}100%{opacity:0}}
+.music:not(.on) #music-state{color:var(--accent)}
+
+/* intro / title screen: the one click that lets the browser start the music */
+.intro{position:fixed;inset:0;z-index:300;display:grid;place-items:center;overflow:hidden;background:var(--bg);transition:opacity .9s ease,visibility 0s linear .9s}
+.intro.out{opacity:0;visibility:hidden}
+.intro-bg{position:absolute;inset:-4%;background:var(--intro-img) center/cover no-repeat;filter:blur(7px) brightness(.42) saturate(1.1);transform:scale(1.06);animation:introdrift 30s ease-in-out infinite alternate}
+@keyframes introdrift{to{transform:scale(1.14) translate(-1.5%,1%)}}
+.intro::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(6,10,20,.15),rgba(6,10,20,.92) 75%)}
+.intro-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:24px;text-align:center;padding:24px max(16px,env(safe-area-inset-left,0px));transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.intro.out .intro-in{transform:scale(1.06)}
+.intro .logo{font-size:26px}
+.intro h2{font:900 clamp(48px,8vw,100px)/.92 var(--display);letter-spacing:-.045em;margin:0}
+.intro h2 span{background:linear-gradient(100deg,var(--accent) 10%,var(--accent-2) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.intro p{margin:0;color:var(--muted);font-size:18px}
+.enter{margin-top:8px;display:inline-flex;align-items:center;gap:14px;padding:18px 36px;border:0;background:var(--accent);color:var(--ink);font:600 17px/1 var(--body);cursor:pointer;
+  box-shadow:0 0 0 8px rgba(134,200,255,.12),0 0 60px rgba(134,200,255,.35);animation:pulse 2.6s ease-in-out infinite;transition:background .2s,transform .2s}
+.enter:hover{background:var(--accent-2);transform:translateY(-2px)}
+.enter svg{width:14px;height:14px}
+@keyframes pulse{50%{box-shadow:0 0 0 14px rgba(134,200,255,.06),0 0 80px rgba(134,200,255,.5)}}
+.intro small{font:500 12px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+body.locked{overflow:hidden}
+
+/* experience */
+section.exp{padding-block:72px 8px;scroll-margin-top:72px}
+.exp-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.exp-list li{display:flex;flex-direction:column;gap:18px;padding:26px 24px 24px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(134,200,255,.07),rgba(134,200,255,0) 60%);min-width:0}
+.exp-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.exp-list h3{margin:0;font:600 19px/1.2 var(--body);letter-spacing:-.01em}
+.exp-list .area{font:500 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.yrs{display:flex;align-items:baseline;gap:10px}
+.yrs b{font:900 clamp(64px,7vw,88px)/.9 var(--display);letter-spacing:-.05em;background:linear-gradient(100deg,var(--accent) 10%,var(--accent-2) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.yrs span{font:500 15px/1 var(--body);color:var(--muted)}
+.scale{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.scale i{height:6px;background:rgba(150,180,255,.14)}
+.scale i.on{background:var(--accent)}
+.exp-list p{margin:0;color:var(--muted);font-size:14px}
+
+/* closing */
+.closing{position:relative;isolation:isolate;overflow:hidden;margin-top:72px}
+.closing::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--closing-img,none) center 45%/cover no-repeat;opacity:.55}
+.closing::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--bg) 0%,rgba(6,10,20,.4) 40%,var(--bg) 100%),linear-gradient(90deg,rgba(6,10,20,.85),rgba(6,10,20,0) 65%)}
+.closing .wrap{padding-block:96px 104px}
+.closing h2{max-width:14ch}
+.closing p{margin:18px 0 0;color:var(--muted);max-width:46ch}
+.closing.cat{padding-block:0}
+.contact-card{display:inline-flex;align-items:center;gap:18px;margin-top:32px;padding:16px 16px 16px 20px;border:1px solid var(--line);background:rgba(11,18,36,.78);backdrop-filter:blur(6px);max-width:100%;flex-wrap:wrap}
+.contact-card .dc{width:34px;height:34px;color:#8ea1ff;flex:none}
+.contact-card .who{display:flex;flex-direction:column;min-width:0}
+.contact-card .who span{font:500 11px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.contact-card .who b{font:700 26px/1.2 var(--display);letter-spacing:-.02em;user-select:all}
+.contact-card .copy{padding:12px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ink);font-weight:600;font-size:14px;cursor:pointer;transition:background .2s}
+.contact-card .copy:hover{background:var(--accent-2)}
+.site-foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:22px 28px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+
+/* viewer */
+.viewer[hidden]{display:none}
+.viewer{position:fixed;inset:0;z-index:100;display:grid;grid-template-rows:auto 1fr auto;background:rgba(3,5,11,.97);padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.viewer-top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 16px;font:400 12px/1.4 var(--mono);color:var(--muted)}
+.viewer-top b{color:var(--fg);font:600 15px/1.3 var(--body)}
+.vbtn{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);background:rgba(11,18,36,.85);cursor:pointer;z-index:2}
+.vbtn:hover{border-color:var(--accent)}
+.vbtn svg{width:18px;height:18px}
+.viewer-stage{position:relative;min-height:0;display:grid;place-items:center;padding:0 72px;overflow:hidden}
+.viewer-stage img{max-width:100%;max-height:100%;object-fit:contain;cursor:zoom-in;user-select:none}
+.viewer.zoomed .viewer-stage{display:block;overflow:auto;padding:0}
+.viewer.zoomed .viewer-stage img{max-width:none;max-height:none;cursor:zoom-out}
+.viewer .prev,.viewer .next{position:absolute;top:50%;transform:translateY(-50%)}
+.viewer .prev{left:14px}.viewer .next{right:14px}
+.viewer.zoomed .prev,.viewer.zoomed .next{display:none}
+.viewer-foot{padding:12px 16px 16px;font:400 12px/1.4 var(--mono);color:var(--muted);text-align:center}
+
+/* entrance */
+.rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+@media (max-width:760px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:10px}
+  .shot{grid-column:span 1;grid-row:auto}
+  .shot img{height:auto;aspect-ratio:1/1}
+  .shot.wide,.shot:first-child{grid-column:span 2}
+  .shot.wide img,.shot:first-child img{aspect-ratio:16/9}
+  .shot .cap span span,.shot .cap i{display:none}
+  .shot:not(.wide):not(:first-child) .cap{padding:30px 10px 10px}
+  .shot:not(.wide):not(:first-child) .cap b{font-size:13px}
+  .cat-head{grid-template-columns:1fr}
+  .cat-num{padding-top:0}
+  .exp-list{grid-template-columns:1fr}
+  .cat-count{text-align:left}
+  .hero .wrap{min-height:0;padding-block:80px 64px}
+  .hero-art::after{background:linear-gradient(0deg,var(--bg) 0%,rgba(6,10,20,.45) 55%,rgba(6,10,20,.75) 100%)}
+  .hero-caption{display:none}
+  .viewer-stage{padding:0 8px}
+  .viewer .prev,.viewer .next{top:auto;bottom:8px;transform:none}
+  .shot .cap{padding:36px 14px 12px}
+  .cap i{display:none}
+}
+@media (max-width:640px){
+  .nav{gap:14px;font-size:12.5px;top:calc(env(safe-area-inset-top,0px) + 16px);right:max(16px,env(safe-area-inset-right,0px))}
+  .site-head .wrap{padding-top:48px}
+}
+@media (max-width:380px){ .nav{gap:10px;font-size:11.5px} }
+@media (prefers-reduced-motion:reduce){
+  .intro-bg,.enter{animation:none}
+  .aurora{display:none}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-title" style="--intro-img:url('img/thumb/hero.jpg')">
+  <div class="intro-bg" aria-hidden="true"></div>
+  <div class="intro-in">
+    <span class="logo" aria-label="younge."><svg viewBox="0 0 30 24" aria-hidden="true"><path d="M0 0h8.2L15 10.4 21.8 0H30L18.6 15.6V24h-7.2v-8.4z" fill="url(#yg)"/></svg><span class="rest" aria-hidden="true">ounge.</span></span>
+    <h2 id="intro-title">Enter the <span>world.</span></h2>
+    <p>Roblox builds, interfaces and models</p>
+    <button class="enter" id="enter" type="button"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 1l11 6-11 6z" fill="currentColor"/></svg>Enter</button>
+    <small>Best with sound on</small>
+  </div>
+</div>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<audio id="bgm" src="audio/ambient.mp3" loop preload="none"></audio>
+<button class="music" id="music" type="button" aria-pressed="false" aria-label="Play background music"><span class="eq" aria-hidden="true"><b></b><b></b><b></b><b></b></span><span id="music-label">Music</span><small id="music-state">OFF</small></button>
+<div class="music-hint" id="music-hint">Relaxing music is on</div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="younge. home">
+      <svg viewBox="0 0 30 24" aria-hidden="true"><path d="M0 0h8.2L15 10.4 21.8 0H30L18.6 15.6V24h-7.2v-8.4z" fill="url(#yg)"/><defs><linearGradient id="yg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9e6ff"/><stop offset="1" stop-color="#4f9cff"/></linearGradient></defs></svg>
+      <span class="rest" aria-hidden="true">ounge.</span>
+    </a>
+    <nav class="nav" aria-label="Sections"><a href="#builds">Builds</a><a href="#interfaces">Interfaces</a><a href="#models">Models</a><a href="#experience">Experience</a><a href="#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-art"><img id="hero-img" src="img/full/hero.jpg" alt="A winding obstacle course of red-lit walkways across floating rock islands at dusk, with a glowing volcano in the distance" width="1920" height="1080"></div>
+    <div class="wrap">
+      <span class="eyebrow rise">Roblox developer &amp; world builder</span>
+      <h1 id="hero-title" class="rise d1">I build <span class="hl">worlds.</span> You play them.</h1>
+      <p class="lede rise d2">Environments, interfaces and 3D models, shown as full 4K renders.</p>
+      <div class="jump rise d3"><a href="#builds">Builds <small>9</small></a><a href="#interfaces">Interfaces <small>10</small></a><a href="#models">Models <small>8</small></a><a href="#contact">Contact</a></div>
+    </div>
+    <p class="hero-caption">Sky Course · Blender, Cycles<br>3840 × 2160</p>
+  </section>
+
+  <section class="cat" id="builds" aria-labelledby="builds-t">
+    <div class="wrap">
+      <div class="cat-head"><span class="cat-num">01</span>
+        <div><h2 id="builds-t">Builds</h2><p>Maps, arenas and lobbies. Every island, walkway and prop modeled, textured and lit for play.</p></div>
+        <span class="cat-count">9 images<br>3840×2160</span></div>
+      <div class="grid">
+        <button class="shot wide" style="--c:8;--r:4;--d:0" type="button" aria-label="Open Kraken Cove full size" data-full="img/full/b_kraken.jpg" data-thumb="img/thumb/b_kraken.jpg" data-title="Kraken Cove" data-sub="Island arena with waterfalls, night" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_kraken.jpg" alt="Tropical island arena on basalt columns with waterfalls at night" width="3840" height="2160" loading="eager"><span class="cap"><span><b>Kraken Cove</b><span>Island arena with waterfalls, night</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot small" style="--c:4;--r:2;--d:1" type="button" aria-label="Open Sky Course full size" data-full="img/full/b_course.jpg" data-thumb="img/thumb/b_course.jpg" data-title="Sky Course" data-sub="Ten obstacles over floating islands, dusk lighting" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_course.jpg" alt="Overview of the floating obstacle course at dusk with red walkways and a volcano" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Sky Course</b><span>Ten obstacles over floating islands, dusk lighting</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot small" style="--c:4;--r:2;--d:2" type="button" aria-label="Open Portal Castle full size" data-full="img/full/b_castle.jpg" data-thumb="img/thumb/b_castle.jpg" data-title="Portal Castle" data-sub="Finish island with the exit portal" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_castle.jpg" alt="A dark castle on a floating island with a glowing purple portal and a red-lit bridge" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Portal Castle</b><span>Finish island with the exit portal</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:3" type="button" aria-label="Open Start Island full size" data-full="img/full/b_start.jpg" data-thumb="img/thumb/b_start.jpg" data-title="Start Island" data-sub="Spawn plaza, towers and robot bay" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_start.jpg" alt="Start island with spires, a glowing spawn dome and a small village" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Start Island</b><span>Spawn plaza, towers and robot bay</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:4" type="button" aria-label="Open Spin Platforms full size" data-full="img/full/b_spin.jpg" data-thumb="img/thumb/b_spin.jpg" data-title="Spin Platforms" data-sub="Rotating discs between two islands" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_spin.jpg" alt="Round spinning platforms floating over clouds beside a lit tower" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Spin Platforms</b><span>Rotating discs between two islands</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:5" type="button" aria-label="Open Bounce Pads full size" data-full="img/full/b_pads.jpg" data-thumb="img/thumb/b_pads.jpg" data-title="Bounce Pads" data-sub="Pad field across a canyon" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_pads.jpg" alt="Rows of glowing bounce pads crossing a canyon between castle walls" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Bounce Pads</b><span>Pad field across a canyon</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot" style="--c:5;--r:3;--d:6" type="button" aria-label="Open Hammer Bridge full size" data-full="img/full/b_hammers.jpg" data-thumb="img/thumb/b_hammers.jpg" data-title="Hammer Bridge" data-sub="Gantry bridge with swinging hammers" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_hammers.jpg" alt="Steel gantry bridge with orange hammer drums and red neon trim" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Hammer Bridge</b><span>Gantry bridge with swinging hammers</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot wide" style="--c:7;--r:3;--d:7" type="button" aria-label="Open Kraken Cove Arena full size" data-full="img/full/b_kraken_top.jpg" data-thumb="img/thumb/b_kraken_top.jpg" data-title="Kraken Cove Arena" data-sub="Tiled arena floor with octopus mural" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_kraken_top.jpg" alt="Top-down view of a tiled arena with an octopus mural, torches and palm trees" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Kraken Cove Arena</b><span>Tiled arena floor with octopus mural</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot wide" style="--c:12;--r:5;--d:8" type="button" aria-label="Open Sky Crown Lobby full size" data-full="img/full/b_skycrown.jpg" data-thumb="img/thumb/b_skycrown.jpg" data-title="Sky Crown Lobby" data-sub="Hub island with pavilions and sky islands" data-cat="Builds" data-w="3840" data-h="2160"><img src="img/thumb/b_skycrown.jpg" alt="Round lobby island with a rainbow tile plaza, purple pavilions and bridges to floating islands" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Sky Crown Lobby</b><span>Hub island with pavilions and sky islands</span></span><i>3840 × 2160</i></span></button>
+      </div>
+    </div>
+  </section>
+  <section class="cat" id="interfaces" aria-labelledby="interfaces-t">
+    <div class="wrap">
+      <div class="cat-head"><span class="cat-num">02</span>
+        <div><h2 id="interfaces-t">Interfaces</h2><p>Menus, shops, HUDs and results screens, designed to read fast on desktop, console and mobile.</p></div>
+        <span class="cat-count">10 images<br>1920×950</span></div>
+      <div class="grid">
+        <button class="shot wide" style="--c:7;--r:4;--d:0" type="button" aria-label="Open Main Menu full size" data-full="img/full/i_menu.jpg" data-thumb="img/thumb/i_menu.jpg" data-title="Main Menu" data-sub="Title screen with Play, How To Play and Settings" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_menu.jpg" alt="Title screen with a colorful logo and three large buttons over a plaza with waterfalls" width="1920" height="950" loading="lazy"><span class="cap"><span><b>Main Menu</b><span>Title screen with Play, How To Play and Settings</span></span><i>1920 × 950</i></span></button>
+        <button class="shot" style="--c:5;--r:2;--d:1" type="button" aria-label="Open Mode Vote full size" data-full="img/full/i_vote.jpg" data-thumb="img/thumb/i_vote.jpg" data-title="Mode Vote" data-sub="Next-round vote with five mode cards" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_vote.jpg" alt="Vote screen with five illustrated mode cards and a countdown" width="1920" height="950" loading="lazy"><span class="cap"><span><b>Mode Vote</b><span>Next-round vote with five mode cards</span></span><i>1920 × 950</i></span></button>
+        <button class="shot" style="--c:5;--r:2;--d:2" type="button" aria-label="Open Round Results full size" data-full="img/full/i_results.jpg" data-thumb="img/thumb/i_results.jpg" data-title="Round Results" data-sub="Standings and itemised rewards" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_results.jpg" alt="Round complete panel with coin and XP rewards" width="1920" height="950" loading="lazy"><span class="cap"><span><b>Round Results</b><span>Standings and itemised rewards</span></span><i>1920 × 950</i></span></button>
+        <button class="shot" style="--c:6;--r:3;--d:3" type="button" aria-label="Open Shop · Gamepasses full size" data-full="img/full/i_passes.jpg" data-thumb="img/thumb/i_passes.jpg" data-title="Shop · Gamepasses" data-sub="Bundle cards with perk lists" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_passes.jpg" alt="Shop window listing four colored bundle cards" width="1920" height="950" loading="lazy"><span class="cap"><span><b>Shop · Gamepasses</b><span>Bundle cards with perk lists</span></span><i>1920 × 950</i></span></button>
+        <button class="shot" style="--c:6;--r:3;--d:4" type="button" aria-label="Open Shop · Eggs full size" data-full="img/full/i_eggs.jpg" data-thumb="img/thumb/i_eggs.jpg" data-title="Shop · Eggs" data-sub="Egg tiers, pet odds and open buttons" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_eggs.jpg" alt="Egg shop with tier tabs, a large egg preview and pet chance list" width="1920" height="950" loading="lazy"><span class="cap"><span><b>Shop · Eggs</b><span>Egg tiers, pet odds and open buttons</span></span><i>1920 × 950</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:5" type="button" aria-label="Open Shop · Daily Login full size" data-full="img/full/i_daily.jpg" data-thumb="img/thumb/i_daily.jpg" data-title="Shop · Daily Login" data-sub="100-day reward track" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_daily.jpg" alt="Grid of daily reward tiles with locks and claim button" width="1920" height="950" loading="lazy"><span class="cap"><span><b>Shop · Daily Login</b><span>100-day reward track</span></span><i>1920 × 950</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:6" type="button" aria-label="Open Settings · Controls full size" data-full="img/full/i_controls.jpg" data-thumb="img/thumb/i_controls.jpg" data-title="Settings · Controls" data-sub="Per-device control reference" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_controls.jpg" alt="Settings window showing keyboard controls with key caps" width="1920" height="950" loading="lazy"><span class="cap"><span><b>Settings · Controls</b><span>Per-device control reference</span></span><i>1920 × 950</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:7" type="button" aria-label="Open How To Play full size" data-full="img/full/i_help.jpg" data-thumb="img/thumb/i_help.jpg" data-title="How To Play" data-sub="Topic tabs and step cards" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_help.jpg" alt="Help window with colored topic tabs and numbered steps" width="1920" height="950" loading="lazy"><span class="cap"><span><b>How To Play</b><span>Topic tabs and step cards</span></span><i>1920 × 950</i></span></button>
+        <button class="shot" style="--c:6;--r:3;--d:8" type="button" aria-label="Open In-Round HUD full size" data-full="img/full/i_round.jpg" data-thumb="img/thumb/i_round.jpg" data-title="In-Round HUD" data-sub="Timer, runners left and obstacle callout" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_round.jpg" alt="Gameplay HUD with round timer and obstacle title over the course" width="1920" height="950" loading="lazy"><span class="cap"><span><b>In-Round HUD</b><span>Timer, runners left and obstacle callout</span></span><i>1920 × 950</i></span></button>
+        <button class="shot" style="--c:6;--r:3;--d:9" type="button" aria-label="Open Lobby HUD full size" data-full="img/full/i_lobby.jpg" data-thumb="img/thumb/i_lobby.jpg" data-title="Lobby HUD" data-sub="Profile, coins, intermission and dock" data-cat="Interfaces" data-w="1920" data-h="950"><img src="img/thumb/i_lobby.jpg" alt="Lobby with level badge, coin counter and button dock" width="1920" height="950" loading="lazy"><span class="cap"><span><b>Lobby HUD</b><span>Profile, coins, intermission and dock</span></span><i>1920 × 950</i></span></button>
+      </div>
+    </div>
+  </section>
+  <section class="cat" id="models" aria-labelledby="models-t">
+    <div class="wrap">
+      <div class="cat-head"><span class="cat-num">03</span>
+        <div><h2 id="models-t">Models</h2><p>Hard-surface and character models with baked PBR textures, built in Blender and rigged for Roblox.</p></div>
+        <span class="cat-count">8 images<br>3840×2160</span></div>
+      <div class="grid">
+        <button class="shot" style="--c:5;--r:6;--d:0" type="button" aria-label="Open The Enforcer full size" data-full="img/full/m_enforcer.jpg" data-thumb="img/thumb/m_enforcer.jpg" data-title="The Enforcer" data-sub="Mech chaser · R15 parts, 4K PBR" data-cat="Models" data-w="3840" data-h="2160"><img src="img/thumb/m_enforcer.jpg" alt="White and black mech robot with red light strips" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>The Enforcer</b><span>Mech chaser · R15 parts, 4K PBR</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot wide" style="--c:7;--r:3;--d:1" type="button" aria-label="Open Arrow Sign full size" data-full="img/full/m_sign.jpg" data-thumb="img/thumb/m_sign.jpg" data-title="Arrow Sign" data-sub="Sci-fi wayfinding sign · 4K PBR" data-cat="Models" data-w="3840" data-h="2160"><img src="img/thumb/m_sign.jpg" alt="Sci-fi sign with silver armored corners and a glowing blue arrow" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Arrow Sign</b><span>Sci-fi wayfinding sign · 4K PBR</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot wide" style="--c:7;--r:3;--d:2" type="button" aria-label="Open Pets full size" data-full="img/full/m_pets.jpg" data-thumb="img/thumb/m_pets.jpg" data-title="Pets" data-sub="Angel, dragon, ice and shadow pets" data-cat="Models" data-w="3840" data-h="2160"><img src="img/thumb/m_pets.jpg" alt="Four stylized pets: a winged angel cat, a fire dragon, an ice sprite and a shadow serpent" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Pets</b><span>Angel, dragon, ice and shadow pets</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot" style="--c:6;--r:3;--d:3" type="button" aria-label="Open Eggs full size" data-full="img/full/m_eggs.jpg" data-thumb="img/thumb/m_eggs.jpg" data-title="Eggs" data-sub="Five rarity tiers" data-cat="Models" data-w="3840" data-h="2160"><img src="img/thumb/m_eggs.jpg" alt="Five decorative eggs on bases, from stone to crystal to leafy" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Eggs</b><span>Five rarity tiers</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot" style="--c:6;--r:3;--d:4" type="button" aria-label="Open Gadget Skins full size" data-full="img/full/m_gadgets.jpg" data-thumb="img/thumb/m_gadgets.jpg" data-title="Gadget Skins" data-sub="Rubber duck bomb, prism and freeze rays" data-cat="Models" data-w="3840" data-h="2160"><img src="img/thumb/m_gadgets.jpg" alt="A rubber duck spring bomb, a pastel ray gun and a dark ray gun" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Gadget Skins</b><span>Rubber duck bomb, prism and freeze rays</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:5" type="button" aria-label="Open Egg Shrine full size" data-full="img/full/m_eggstand.jpg" data-thumb="img/thumb/m_eggstand.jpg" data-title="Egg Shrine" data-sub="Floating hatch stand with five shrines" data-cat="Models" data-w="3840" data-h="2160"><img src="img/thumb/m_eggstand.jpg" alt="Floating stone platform with five arched shrines in different colors" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Egg Shrine</b><span>Floating hatch stand with five shrines</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:6" type="button" aria-label="Open Volcano full size" data-full="img/full/m_volcano.jpg" data-thumb="img/thumb/m_volcano.jpg" data-title="Volcano" data-sub="Map centerpiece with lava channels" data-cat="Models" data-w="3840" data-h="2160"><img src="img/thumb/m_volcano.jpg" alt="Rocky volcano with glowing lava cracks" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Volcano</b><span>Map centerpiece with lava channels</span></span><i>3840 × 2160</i></span></button>
+        <button class="shot small" style="--c:4;--r:3;--d:7" type="button" aria-label="Open Prize Wheel full size" data-full="img/full/m_spin.jpg" data-thumb="img/thumb/m_spin.jpg" data-title="Prize Wheel" data-sub="Daily spin wheel with bulbs" data-cat="Models" data-w="3840" data-h="2160"><img src="img/thumb/m_spin.jpg" alt="A prize wheel with colored segments, bulbs and a stepped stand" width="3840" height="2160" loading="lazy"><span class="cap"><span><b>Prize Wheel</b><span>Daily spin wheel with bulbs</span></span><i>3840 × 2160</i></span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="exp" id="experience" aria-labelledby="exp-title">
+    <div class="wrap">
+      <div class="cat-head"><span class="cat-num">04</span>
+        <div><h2 id="exp-title">Experience</h2><p>Years working in each discipline.</p></div>
+        <span class="cat-count">Roblox Studio<br>Blender</span></div>
+      <ol class="exp-list">
+        <li><div class="exp-top"><h3>Building</h3><span class="area">Maps</span></div>
+          <div class="yrs"><b>3</b><span>years</span></div>
+          <div class="scale" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+          <p>Obstacle courses, arenas, lobbies and full sky-island worlds.</p></li>
+        <li><div class="exp-top"><h3>Modeling</h3><span class="area">3D</span></div>
+          <div class="yrs"><b>2</b><span>years</span></div>
+          <div class="scale" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></div>
+          <p>Hard-surface and character models with baked PBR textures.</p></li>
+        <li><div class="exp-top"><h3>Interface</h3><span class="area">UI</span></div>
+          <div class="yrs"><b>2</b><span>years</span></div>
+          <div class="scale" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></div>
+          <p>Menus, shops, HUDs and results screens for desktop, console and mobile.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="closing cat" id="contact" aria-labelledby="close-title" style="--closing-img:url('img/thumb/closing.jpg')">
+    <div class="wrap">
+      <span class="eyebrow">Contact me</span>
+      <h2 id="close-title" style="margin-top:16px">Let's build something great.</h2>
+      <p>Maps, lobbies, interfaces and custom models, built and textured to the same standard as the work above. Message me on Discord to talk about a project.</p>
+      <div class="contact-card">
+        <svg class="dc" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18.2 18.2 0 0 0-5.6 0L8.6 3a19.5 19.5 0 0 0-4.9 1.4C.6 9 0 13.5.3 18a19.7 19.7 0 0 0 6 3l1.3-2a12.7 12.7 0 0 1-2-1l.5-.4a14 14 0 0 0 11.8 0l.5.4c-.6.4-1.3.7-2 1l1.3 2a19.6 19.6 0 0 0 6-3c.5-5.2-.8-9.7-3.4-13.6ZM8.7 15.3c-1.2 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2.2 1 2.1 2.3c0 1.2-.9 2.3-2.1 2.3Zm6.6 0c-1.2 0-2.1-1-2.1-2.3s.9-2.3 2.1-2.3 2.2 1 2.1 2.3c0 1.2-.9 2.3-2.1 2.3Z"/></svg>
+        <div class="who"><span>Discord</span><b id="dc-name">younge</b></div>
+        <button class="copy" id="dc-copy" type="button">Copy username</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Back to top">
+      <svg viewBox="0 0 30 24" aria-hidden="true"><path d="M0 0h8.2L15 10.4 21.8 0H30L18.6 15.6V24h-7.2v-8.4z" fill="url(#yg)"/></svg>
+      <span class="rest" aria-hidden="true">ounge.</span>
+    </a>
+    <span>Roblox developer</span>
+  </div>
+</footer>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="viewer-top">
+    <div><b id="v-title"></b><div id="v-sub"></div></div>
+    <button class="vbtn" id="v-close" type="button" aria-label="Close viewer"><svg viewBox="0 0 18 18"><path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+  </div>
+  <div class="viewer-stage" id="v-stage">
+    <img id="v-img" alt="">
+    <button class="vbtn prev" id="v-prev" type="button" aria-label="Previous image"><svg viewBox="0 0 18 18"><path d="M11 3 5 9l6 6" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+    <button class="vbtn next" id="v-next" type="button" aria-label="Next image"><svg viewBox="0 0 18 18"><path d="m7 3 6 6-6 6" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></button>
+  </div>
+  <div class="viewer-foot" id="v-foot"></div>
+</div>
+
+<script>
+const shots = [...document.querySelectorAll(".shot")];
+const V = document.getElementById("viewer"), VI = document.getElementById("v-img"), ST = document.getElementById("v-stage");
+let cur = -1, lastFocus = null;
+function show(i) {
+  cur = (i + shots.length) % shots.length;
+  const s = shots[cur].dataset;
+  V.classList.remove("zoomed");
+  VI.src = s.thumb; VI.alt = shots[cur].querySelector("img").alt;
+  const full = new Image();
+  const want = cur;
+  full.onload = () => { if (cur === want) VI.src = s.full; };
+  full.src = s.full;
+  document.getElementById("v-title").textContent = s.title;
+  document.getElementById("v-sub").textContent = s.cat + " · " + s.sub;
+  document.getElementById("v-foot").textContent = `${s.w} × ${s.h} · ${cur + 1} / ${shots.length} · click the image to view at 100%`;
+}
+shots.forEach((b, i) => b.addEventListener("click", () => {
+  lastFocus = b; V.hidden = false; document.body.style.overflow = "hidden"; document.body.classList.add("viewing"); show(i);
+  document.getElementById("v-close").focus();
+}));
+function closeViewer() {
+  V.hidden = true; document.body.style.overflow = ""; document.body.classList.remove("viewing"); VI.removeAttribute("src");
+  if (lastFocus) lastFocus.focus();
+}
+document.getElementById("v-close").onclick = closeViewer;
+document.getElementById("v-prev").onclick = () => show(cur - 1);
+document.getElementById("v-next").onclick = () => show(cur + 1);
+VI.onclick = () => {
+  if (V.classList.toggle("zoomed")) {
+    requestAnimationFrame(() => {
+      ST.scrollLeft = (VI.scrollWidth - ST.clientWidth) / 2;
+      ST.scrollTop = (VI.scrollHeight - ST.clientHeight) / 2;
+    });
+  }
+};
+ST.addEventListener("click", e => { if (e.target === ST && !V.classList.contains("zoomed")) closeViewer(); });
+document.addEventListener("keydown", e => {
+  if (V.hidden) return;
+  if (e.key === "Escape") closeViewer();
+  else if (e.key === "ArrowRight") show(cur + 1);
+  else if (e.key === "ArrowLeft") show(cur - 1);
+});
+let tx = null;
+V.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, {passive: true});
+V.addEventListener("touchend", e => {
+  if (tx === null || V.classList.contains("zoomed")) return;
+  const dx = e.changedTouches[0].clientX - tx; tx = null;
+  if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1));
+});
+const cbtn = document.getElementById("dc-copy");
+cbtn.addEventListener("click", () => {
+  const done = () => { cbtn.textContent = "Copied"; setTimeout(() => cbtn.textContent = "Copy username", 1800); };
+  const fallback = () => {
+    const r = document.createRange(); r.selectNodeContents(document.getElementById("dc-name"));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); cbtn.textContent = "Selected, press Ctrl/⌘+C";
+    setTimeout(() => cbtn.textContent = "Copy username", 2600);
+  };
+  try { navigator.clipboard.writeText("younge").then(done, fallback); } catch (e) { fallback(); }
+});
+const links = [...document.querySelectorAll(".nav a")];
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting) links.forEach(l => l.classList.toggle("on", l.getAttribute("href") === "#" + en.target.id));
+}), {rootMargin: "-40% 0px -55% 0px"});
+document.querySelectorAll("section.cat, section.exp").forEach(s => io.observe(s));
+
+/* ---- night sky: twinkling stars, slow drifting light motes, an occasional shooting star ---- */
+(() => {
+  const cv = document.getElementById("sky"), ctx = cv.getContext("2d");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W = 0, H = 0, dpr = 1, stars = [], motes = [], shoot = null, nextShoot = 4000, last = performance.now(), sy = 0;
+  function size() {
+    dpr = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(W * H / 5200);
+    stars = Array.from({length: n}, () => ({x: Math.random() * W, y: Math.random() * H * 1.6, r: Math.random() ** 3 * 1.4 + .25,
+      a: Math.random() * .6 + .2, tw: Math.random() * 6.28, sp: Math.random() * 1.5 + .4, z: Math.random() * .5 + .1,
+      c: Math.random() < .18 ? "201,230,255" : Math.random() < .5 ? "180,200,255" : "255,255,255"}));
+    motes = Array.from({length: Math.round(W / 70)}, () => newMote(true));
+  }
+  function newMote(any) {
+    return {x: Math.random() * W, y: any ? Math.random() * H : H + 20, r: Math.random() * 2.2 + .8, vy: -(Math.random() * 6 + 4),
+      vx: (Math.random() - .5) * 3, a: Math.random() * .35 + .15, ph: Math.random() * 6.28};
+  }
+  function frame(now) {
+    const dt = Math.min(60, now - last) / 1000; last = now;
+    ctx.clearRect(0, 0, W, H);
+    const t = now / 1000;
+    for (const s of stars) {
+      const y = ((s.y - sy * s.z) % (H * 1.6) + H * 1.6) % (H * 1.6);
+      if (y > H) continue;
+      const a = s.a * (.65 + .35 * Math.sin(t * s.sp + s.tw));
+      ctx.fillStyle = `rgba(${s.c},${a})`;
+      ctx.beginPath(); ctx.arc(s.x, y, s.r, 0, 6.283); ctx.fill();
+      if (s.r > 1.2) { ctx.fillStyle = `rgba(${s.c},${a * .15})`; ctx.beginPath(); ctx.arc(s.x, y, s.r * 4, 0, 6.283); ctx.fill(); }
+    }
+    for (const m of motes) {
+      m.y += m.vy * dt; m.x += (m.vx + Math.sin(t * .6 + m.ph) * 4) * dt;
+      if (m.y < -20) Object.assign(m, newMote(false));
+      const g = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r * 6);
+      g.addColorStop(0, `rgba(134,200,255,${m.a})`); g.addColorStop(1, "rgba(134,200,255,0)");
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(m.x, m.y, m.r * 6, 0, 6.283); ctx.fill();
+    }
+    nextShoot -= dt * 1000;
+    if (!shoot && nextShoot < 0) {
+      shoot = {x: Math.random() * W * .7 + W * .2, y: Math.random() * H * .35, life: 0};
+      nextShoot = 6000 + Math.random() * 9000;
+    }
+    if (shoot) {
+      shoot.life += dt;
+      const p = shoot.life / 1.1, len = 140, hx = shoot.x - p * 520, hy = shoot.y + p * 220;
+      const g = ctx.createLinearGradient(hx, hy, hx + len, hy - len * .42);
+      const a = Math.sin(Math.min(1, p) * Math.PI);
+      g.addColorStop(0, `rgba(230,242,255,${a})`); g.addColorStop(1, "rgba(230,242,255,0)");
+      ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(hx + len, hy - len * .42); ctx.stroke();
+      if (p >= 1) shoot = null;
+    }
+    if (!still) requestAnimationFrame(frame);
+  }
+  addEventListener("resize", size);
+  addEventListener("scroll", () => { sy = scrollY; if (still) frame(performance.now()); }, {passive: true});
+  size(); requestAnimationFrame(frame);
+})();
+
+/* ---- background music: ON by default (Web Audio; plays inside embedded/sandboxed pages too).
+   Browsers only allow sound after the visitor's first click/tap/key, so until then the button reads
+   "TAP TO PLAY" and the first interaction anywhere starts it. Muting is remembered. ---- */
+(() => {
+  const B = document.getElementById("music"), S = document.getElementById("music-state"), hint = document.getElementById("music-hint");
+  const TARGET = .7;
+  let ac = null, gain = null, src = null, buf = null, loading = null, on = false, fallback = null;
+  const store = v => { try { localStorage.setItem("younge-music", v ? "1" : "0"); } catch (e) {} };
+  const muted = (() => { try { return localStorage.getItem("younge-music") === "0"; } catch (e) { return false; } })();
+  function show(state) {  // "on" | "off" | "wait"
+    B.classList.toggle("on", state === "on"); B.setAttribute("aria-pressed", state === "on");
+    B.setAttribute("aria-label", state === "on" ? "Mute background music" : "Play background music");
+    S.textContent = state === "on" ? "ON" : state === "wait" ? "TAP TO PLAY" : "OFF";
+  }
+  function load() {
+    if (loading) return loading;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    ac = new AC(); gain = ac.createGain(); gain.gain.value = 0; gain.connect(ac.destination);
+    loading = fetch("audio/ambient.mp3").then(r => { if (!r.ok) throw 0; return r.arrayBuffer(); })
+      .then(ab => new Promise((res, rej) => ac.decodeAudioData(ab, res, rej)))
+      .then(b => { buf = b; })
+      .catch(() => { fallback = document.getElementById("bgm"); });
+    return loading;
+  }
+  async function start() {
+    load();
+    try { await ac.resume(); } catch (e) {}
+    await loading;
+    if (fallback) {  // plain <audio> if the file could not be fetched (e.g. opened from disk)
+      fallback.volume = TARGET;
+      try { await fallback.play(); } catch (e) { show("wait"); return false; }
+      on = true; show("on"); return true;
+    }
+    if (ac.state !== "running") { show("wait"); return false; }
+    if (!src) { src = ac.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(gain); src.start(); }
+    const now = ac.currentTime;
+    gain.gain.cancelScheduledValues(now); gain.gain.setValueAtTime(gain.gain.value, now);
+    gain.gain.linearRampToValueAtTime(TARGET, now + 3);
+    on = true; show("on"); return true;
+  }
+  function stop() {
+    on = false; show("off");
+    if (fallback) { fallback.pause(); return; }
+    if (!ac) return;
+    const now = ac.currentTime;
+    gain.gain.cancelScheduledValues(now); gain.gain.setValueAtTime(gain.gain.value, now);
+    gain.gain.linearRampToValueAtTime(0, now + 1.2);
+    setTimeout(() => { if (!on) ac.suspend(); }, 1300);
+  }
+  B.addEventListener("click", () => {
+    hint.hidden = true;
+    if (on) { stop(); store(false); } else { store(true); start(); }
+  });
+  window.__music = {start: () => { if (!muted && !on) start(); }, muted};
+  if (muted) show("off");
+  else if (document.getElementById("intro")) { show("wait"); hint.hidden = true; }
+  else {
+    show("wait");
+    start().then(ok => {
+      if (ok) { hint.hidden = true; return; }
+      hint.textContent = "Tap anywhere to start the music";
+      const go = e => {
+        if (B.contains(e.target)) return;
+        ["pointerdown", "keydown", "touchend"].forEach(n => removeEventListener(n, go, true));
+        if (!on) start();
+      };
+      ["pointerdown", "keydown", "touchend"].forEach(n => addEventListener(n, go, true));
+    });
+  }
+  setTimeout(() => { hint.hidden = true; }, 9000);
+  document.addEventListener("visibilitychange", () => {
+    if (!on) return;
+    if (fallback) { document.hidden ? fallback.pause() : fallback.play().catch(() => {}); return; }
+    if (ac) document.hidden ? ac.suspend() : ac.resume();
+  });
+})();
+
+/* ---- intro: Enter starts the music (that click is the browser's permission) and reveals the site ---- */
+(() => {
+  const I = document.getElementById("intro"), E = document.getElementById("enter");
+  if (!I) return;
+  document.body.classList.add("locked");
+  E.focus({preventScroll: true});
+  let done = false;
+  function enter() {
+    if (done) return; done = true;
+    window.__music && window.__music.start();
+    I.classList.add("out"); document.body.classList.remove("locked");
+    document.querySelectorAll(".hero .rise").forEach(el => { el.style.animation = "none"; el.offsetWidth; el.style.animation = ""; });
+    setTimeout(() => { I.remove(); }, 1000);
+  }
+  E.addEventListener("click", enter);
+  addEventListener("keydown", e => { if (!done && (e.key === "Enter" || e.key === " " || e.key === "Escape")) { e.preventDefault(); enter(); } });
+})();
+</script>
+
+</body>
+</html>
